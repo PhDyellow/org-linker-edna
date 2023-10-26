@@ -89,9 +89,10 @@ S is a string formatted as org edna ids property value."
 
 
 (defun org-linker-edna-set-trigger-helm (source target)
-  (let* ((actions (helm :sources (helm-build-sync-source "Select Trigger Actions"
-				   :candidates org-linker-edna-actions
-				   :action 'org-linker-edna-actions-dispatcher)))
+  (let* ((actions (helm :sources (helm-make-source "Select Trigger Actions"
+																		 'helm-source-sync
+																	 :candidates org-linker-edna-actions
+																	 :action 'org-linker-edna-actions-dispatcher)))
 	 (todo (plist-get actions :todo))
 	 (scheduled (plist-get actions :scheduled))
 	 (deadline (plist-get actions :deadline))
@@ -127,7 +128,9 @@ S is a string formatted as org edna ids property value."
 
 
 (defun org-linker-edna-state-selector ()
-  (helm :sources (helm-build-sync-source "Select TODO state"
+  (helm :sources (heml-make-source
+									"Select TODO state"
+									'helm-source-sync
 		   :candidates org-todo-keywords-1)))
 
 
